@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Print a list of query options
+echo "Select a query option:"
+echo "1) site:example.com intext:password"
+echo "2) filetype:pdf password"
+echo "3) inurl:admin login"
+echo "4) define:hello"
+echo "5) stocks:GOOGL"
+echo "6) Custom query"
+
+# Read the user's choice
+read -p "Enter your choice: " choice
+
+# Set the query based on the user's choice
+case $choice in
+  1) query="site:example.com intext:password";;
+  2) query="filetype:pdf password";;
+  3) query="inurl:admin login";;
+  4) query="define:hello";;
+  5) query="stocks:GOOGL";;
+  6) read -p "Enter your custom query: " query;;
+  *) echo "Invalid choice"
+     exit 1;;
+esac
+
+# Use curl to send a GET request to Google with the search query
+response=$(curl -s "https://www.google.com/search?q=$query")
+
+# Print the response
+echo "$response"
